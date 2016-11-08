@@ -1,6 +1,6 @@
 {
   "name": "enter-exit-logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "typescript/javascript method enter/exit logger based on log4js-node",
   "main": "src/enter-exit-logger.js",
   "scripts": {
