@@ -1,5 +1,5 @@
-import { using } from '../src/disposable';
-import { MLogger } from '../src/mlogger';
+import { using } from '../disposable';
+import { MLogger } from '../mlogger';
 
 import { Logger, getLogger, levels, configure } from 'log4js';
 
