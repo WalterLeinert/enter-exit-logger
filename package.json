@@ -1,15 +1,31 @@
 {
-  "name": "enter-exit-logger",
+  "name": "mlogger",
   "version": "1.0.0",
-  "description": "Extension to log4js-node ",
+  "description": "typescript/javascript method enter/exit logger based on log4js-node",
   "main": "src/enter-exit-logger.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node build/test/disposable-test.js && node build/test/mlogger-test.js",
     "tsc": "tsc",
     "tslint": "tslint ./*.ts ./lib/*.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Walter Leinert",
+    "email": "walter.leinert@outlook.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WalterLeinert/MLogger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WalterLeinert/MLogger/issues"
+  },
+  "tags": [
+    "logging",
+    "disposable",
+    "typescript",
+    "log4js"
+  ],
   "dependencies": {
     "@types/log4js": "0.0.32",
     "@types/node": "^6.0.46",
