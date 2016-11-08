@@ -2,8 +2,8 @@
   "name": "enter-exit-logger",
   "version": "1.0.1",
   "description": "typescript/javascript method enter/exit logger based on log4js-node",
-  "main": "lib/index.js",
-  "typings": "lib/index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.js",
   "scripts": {
     "test": "node dist/test/disposable-test.js && node dist/test/mlogger-test.js",
     "tsc": "tsc",
