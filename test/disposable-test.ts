@@ -46,4 +46,9 @@ console.log('Test double dispose: exception thrown on double dispose');
 Disposable.throwExceptionOnAlreadyDisposed = true;
 camera = new Camera('Canon', 'EOS 5D Mark IV');
 camera.dispose();
-camera.dispose();
+
+try {
+   camera.dispose();
+} catch (exc) {
+    console.error("Exception expected: ", exc);
+}
