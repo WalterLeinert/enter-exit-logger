@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Programm starten",
-            "program": "${workspaceRoot}\\build\\test\\enter-exit-logger-test.js",
+            "program": "${workspaceRoot}\\build\\test\\mlogger-test.js",
             "cwd": "${workspaceRoot}",
             "outFiles": [
                 "${workspaceRoot}\\build\\**\\*.js"
