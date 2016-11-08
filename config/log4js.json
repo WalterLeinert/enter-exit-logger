@@ -1,0 +1,26 @@
+{
+    "appenders": [
+        {
+            "type": "file",
+            "filename": "log4js.log",
+            "category": ["Tester", "console"],
+            "levels": ["ERROR"],
+            "layout": {
+                "type": "pattern",
+                "pattern": "%d{ISO8601} [%-5p] %-20c %m"
+            }
+        },
+        {
+            "type": "console",
+            "layout": {
+                "type": "pattern",
+                "pattern": "%d{ISO8601} [%[%-5p%]] %[%-20c%] %m"
+            }
+        }
+    ],
+    "levels": {
+        "[all]": "INFO",
+        "Tester": "DEBUG"
+    },
+    "replaceConsole": true
+}

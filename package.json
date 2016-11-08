@@ -1,0 +1,19 @@
+{
+  "name": "enter-exit-logger",
+  "version": "1.0.0",
+  "description": "Extension to log4js-node ",
+  "main": "src/enter-exit-logger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
+    "tslint": "tslint ./*.ts ./lib/*.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/log4js": "0.0.32",
+    "@types/node": "^6.0.46",
+    "log4js": "^1.0.1"
+  },
+  "devDependencies": {}
+}
