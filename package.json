@@ -3,7 +3,7 @@
   "version": "1.0.3",
   "description": "typescript/javascript method enter/exit logger based on log4js-node",
   "main": "dist/index.js",
-  "typings": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "node dist/test/disposable-test.js && node dist/test/mlogger-test.js",
     "tsc": "tsc",
