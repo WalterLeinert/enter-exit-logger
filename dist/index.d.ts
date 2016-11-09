@@ -20,7 +20,7 @@ declare abstract class Disposable {
  * @see {EnterExitLogger} works in conjunction with 
  * @see {using}.
  */
-declare class MLogger extends Disposable {
+declare class XLog extends Disposable {
     constructor(logger: Logger, level: Level, functionName: string, message?: string, ...args: any[]);
 
     public log(message: string, ...args: any[]): void; 
@@ -53,4 +53,3 @@ declare class MLogger extends Disposable {
 declare function using<TDisposable extends IDisposable, TReturn>(
     disposable: TDisposable,
     closure: (disposable: TDisposable) => TReturn): TReturn;
-    
