@@ -2,19 +2,19 @@
 typescript/javascript method enter/exit logger based on log4js-node
 
 
-mlogger helps to generate enter/exit traces for typescript methods using the disposable pattern. 
+enter-exit-logger helps to generate enter/exit traces for typescript methods using the disposable pattern. 
 The trace logs are created with [log4js-node](https://github.com/nomiddlename/log4js-node).
 
 ## Installation
 
 1. Install module:
 
-    `npm install mlogger --save`
+    `npm install enter-exit-logger --save`
 
 
 ## Quick Start
 
-With MLogger method entry/exit logging can easily be added to typescript code.  
+With enter-exit-logger method entry/exit logging can easily be added to typescript code.  
 
 ```typescript
 import { MLogger, using } from 'mlogger';

@@ -13,7 +13,7 @@ declare function using<TDisposable extends IDisposable, TReturn>(
     disposable: TDisposable,
     closure: (disposable: TDisposable) => TReturn): TReturn;
 
-declare class MLogger {
+declare class MLogger extends Disposable {
     constructor(logger: Logger, level: Level, functionName: string, message?: string, ...args: any[]);
 
     public log(message: string, ...args: any[]): void; 
