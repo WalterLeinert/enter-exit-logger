@@ -9,6 +9,9 @@ declare abstract class Disposable {
     protected onDispose();
 }
 
+declare function using<TDisposable extends IDisposable, TReturn>(
+    disposable: TDisposable,
+    closure: (disposable: TDisposable) => TReturn): TReturn;
 
 declare class MLogger {
     constructor(logger: Logger, level: Level, functionName: string, message?: string, ...args: any[]);
