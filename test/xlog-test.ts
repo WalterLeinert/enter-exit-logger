@@ -1,5 +1,5 @@
 import { using } from '../disposable';
-import { MLogger } from '../mlogger';
+import { XLog } from '../xlog';
 
 import { Logger, getLogger, levels, configure } from 'log4js';
 
@@ -36,19 +36,19 @@ export class Tester {
     private static logger = getLogger('Tester');
 
     constructor(name: string) {
-        using(new MLogger(Tester.logger, levels.INFO, 'ctor', 'name = %s', name), (log) => {
+        using(new XLog(Tester.logger, levels.INFO, 'ctor', 'name = %s', name), (log) => {
             // ...
         });
     }
 
     private throwException(message: string) {
-        using(new MLogger(Tester.logger, levels.DEBUG, 'throwException', 'message = %s', message), (log) => {
+        using(new XLog(Tester.logger, levels.DEBUG, 'throwException', 'message = %s', message), (log) => {
             throw new Error(message);
         });
     }
 
     private doTestInternal(val: number): number {
-        return using(new MLogger(Tester.logger, levels.DEBUG, 'doTestInternal', 'val = %d', val), (log) => {
+        return using(new XLog(Tester.logger, levels.DEBUG, 'doTestInternal', 'val = %d', val), (log) => {
             log.log('value = %d', val);
 
             this.throwException("exception tester");    // simulate exception
@@ -57,7 +57,7 @@ export class Tester {
     }
 
     public doTest(name: string): number {
-        return using(new MLogger(Tester.logger, levels.INFO, 'doTest', 'name = %s', name), (log) => {
+        return using(new XLog(Tester.logger, levels.INFO, 'doTest', 'name = %s', name), (log) => {
             try {
                 return this.doTestInternal(4711);
             } catch (exc) {
@@ -71,7 +71,7 @@ class Tester2 {
     private static logger = getLogger('Tester2');
 
     constructor() {
-        using(new MLogger(Tester2.logger, levels.INFO, 'ctor'), (log) => {
+        using(new XLog(Tester2.logger, levels.INFO, 'ctor'), (log) => {
             // ...
         });
     }

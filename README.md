@@ -1,4 +1,4 @@
-# MLogger
+# enter-exit-logger
 typescript/javascript method enter/exit logger based on log4js-node
 
 
@@ -17,7 +17,7 @@ The trace logs are created with [log4js-node](https://github.com/nomiddlename/lo
 With enter-exit-logger method entry/exit logging can easily be added to typescript code.  
 
 ```typescript
-import { MLogger, using } from 'mlogger';
+import { XLog, using } from 'enter-exit-logger';
 import { Logger, getLogger, levels, configure } from 'log4js'; 
 
 
@@ -26,19 +26,19 @@ export class Tester {
     private static logger = getLogger('Tester');
 
     constructor(name: string) {
-        using(new MLogger(Tester.logger, levels.INFO, 'ctor', 'name = %s', name), (log) => {
+        using(new XLog(Tester.logger, levels.INFO, 'ctor', 'name = %s', name), (log) => {
             // ...
         });
     }
 
     private throwException(message: string) {
-        using(new MLogger(Tester.logger, levels.DEBUG, 'throwException', 'message = %s', message), (log) => {
+        using(new XLog(Tester.logger, levels.DEBUG, 'throwException', 'message = %s', message), (log) => {
             throw new Error(message);
         });
     }
 
     private doTestInternal(val: number): number {
-        return using(new MLogger(Tester.logger, levels.DEBUG, 'doTestInternal', 'val = %d', val), (log) => {
+        return using(new XLog(Tester.logger, levels.DEBUG, 'doTestInternal', 'val = %d', val), (log) => {
             log.log('value = %d', val);
 
             this.throwException("exception tester");    // simulate exception
@@ -47,7 +47,7 @@ export class Tester {
     }
 
     public doTest(name: string): number {
-        return using(new MLogger(Tester.logger, levels.INFO, 'doTest', 'name = %s', name), (log) => {
+        return using(new XLog(Tester.logger, levels.INFO, 'doTest', 'name = %s', name), (log) => {
             try {
                 return this.doTestInternal(4711);
             } catch (exc) {

@@ -1,8 +1,8 @@
-import { MLogger } from './mlogger';
+import { XLog } from './xlog';
 import { IDisposable, Disposable, using } from './disposable';
 
 export {
-    MLogger,
+    XLog,
     IDisposable,
     Disposable,
     using

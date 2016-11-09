@@ -17,14 +17,14 @@ enum EnterExit {
  * @see {EnterExitLogger} works in conjunction with 
  * @see {using}.
  */
-export class MLogger extends Disposable {
+export class XLog extends Disposable {
     private static indentation = -1;
 
     static readonly EnterExitStrings: string[] = ['>> ', '<< ', '@  '];
     static readonly defaultIndentation = 2;
     static readonly maxIndentations = 30;
     static readonly indentationLevels = new Array<string>();
-    private static initEnterExitLogger: boolean = MLogger.initialize();
+    private static initEnterExitLogger: boolean = XLog.initialize();
 
     private functionName: string;
     private level: Level;
@@ -32,14 +32,14 @@ export class MLogger extends Disposable {
 
     static initialize(): boolean {
         let indentString = '';
-        for (let j = 0; j < MLogger.defaultIndentation; j++) {
+        for (let j = 0; j < XLog.defaultIndentation; j++) {
             indentString = indentString + ' ';
         }
         let indent = '';
 
-        for (let i = 0; i < MLogger.maxIndentations; i++) {
+        for (let i = 0; i < XLog.maxIndentations; i++) {
             // console.log('initialize: i = ' + i + ', indent = \'' + indent + '\'' );
-            MLogger.indentationLevels.push(indent);
+            XLog.indentationLevels.push(indent);
             indent = indent + indentString;
         }
 
@@ -61,7 +61,7 @@ export class MLogger extends Disposable {
         this.level = level;
         this.functionName = functionName;
 
-        MLogger.indentation++;
+        XLog.indentation++;
         this.logInternal(EnterExit.Enter, this.level, message, ...args);
     }
 
@@ -71,7 +71,7 @@ export class MLogger extends Disposable {
     protected onDispose(): void {
         try {
             this.logInternal(EnterExit.Exit, this.level);
-            MLogger.indentation--;
+            XLog.indentation--;
         } finally {
             super.onDispose();
         }     
@@ -136,8 +136,8 @@ export class MLogger extends Disposable {
      * @param {any[]} ...args - additional log arguments 
      */
     private logInternal(kind: EnterExit, level: Level, message?: string, ...args: any[]): void {
-        let indent = MLogger.indentationLevels[MLogger.indentation];
-        let prefix = indent + MLogger.EnterExitStrings[kind] + this.functionName;
+        let indent = XLog.indentationLevels[XLog.indentation];
+        let prefix = indent + XLog.EnterExitStrings[kind] + this.functionName;
 
         // prefix not empty message 
         if (message && message.length > 0 ) {
