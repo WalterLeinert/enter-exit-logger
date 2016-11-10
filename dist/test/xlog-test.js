@@ -23,9 +23,10 @@ log4js.configure({
     replaceConsole: true
 });
 */
+//
+// configure the logging system
+//
 log4js_1.configure("config/log4js.json");
-// var logger: Logger = getLogger("Tester");
-// logger.setLevel(levels.INFO);
 var Tester = (function () {
     function Tester(name) {
         disposable_1.using(new xlog_1.XLog(Tester.logger, log4js_1.levels.INFO, 'ctor', 'name = %s', name), function (log) {
@@ -40,7 +41,9 @@ var Tester = (function () {
     Tester.prototype.doTestInternal = function (val) {
         var _this = this;
         return disposable_1.using(new xlog_1.XLog(Tester.logger, log4js_1.levels.DEBUG, 'doTestInternal', 'val = %d', val), function (log) {
-            log.log('value = %d', val);
+            if (log.isEnabled()) {
+                log.log('value = %d', val); // log with same level as in XLog constructor if enabled
+            }
             _this.throwException("exception tester"); // simulate exception
             return 2 * val;
         });

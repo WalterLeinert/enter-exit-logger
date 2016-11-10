@@ -26,11 +26,10 @@ log4js.configure({
 });
 */
 
+//
+// configure the logging system
+//
 configure("config/log4js.json");
-
-
-// var logger: Logger = getLogger("Tester");
-// logger.setLevel(levels.INFO);
 
 export class Tester {
     private static logger = getLogger('Tester');
@@ -49,7 +48,9 @@ export class Tester {
 
     private doTestInternal(val: number): number {
         return using(new XLog(Tester.logger, levels.DEBUG, 'doTestInternal', 'val = %d', val), (log) => {
-            log.log('value = %d', val);
+            if (log.isEnabled()) {
+                log.log('value = %d', val);             // log with same level as in XLog constructor if enabled
+            }            
 
             this.throwException("exception tester");    // simulate exception
             return 2 * val;

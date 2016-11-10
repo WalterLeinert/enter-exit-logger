@@ -74,7 +74,7 @@ export class XLog extends Disposable {
             XLog.indentation--;
         } finally {
             super.onDispose();
-        }     
+        }
     }
 
     /**
@@ -99,30 +99,30 @@ export class XLog extends Disposable {
         this.logInternal(EnterExit.Log, levels.DEBUG, message, args);
     }
 
-     /**
-     * logs a message for log level @see{levels.INFO}.
-     */
+    /**
+    * logs a message for log level @see{levels.INFO}.
+    */
     public info(message: string, ...args: any[]): void {
         this.logInternal(EnterExit.Log, levels.INFO, message, args);
     }
 
-     /**
-     * logs a message for log level @see{levels.WARN}.
-     */
+    /**
+    * logs a message for log level @see{levels.WARN}.
+    */
     public warn(message: string, ...args: any[]): void {
         this.logInternal(EnterExit.Log, levels.WARN, message, args);
     }
 
-     /**
-     * logs a message for log level @see{levels.ERROR}.
-     */
+    /**
+    * logs a message for log level @see{levels.ERROR}.
+    */
     public error(message: string, ...args: any[]): void {
         this.logInternal(EnterExit.Log, levels.ERROR, message, args);
     }
 
-     /**
-     * logs a message for log level @see{levels.FATAL}.
-     */
+    /**
+    * logs a message for log level @see{levels.FATAL}.
+    */
     public fatal(message: string, ...args: any[]): void {
         this.logInternal(EnterExit.Log, levels.FATAL, message, args);
     }
@@ -140,7 +140,7 @@ export class XLog extends Disposable {
         let prefix = indent + XLog.EnterExitStrings[kind] + this.functionName;
 
         // prefix not empty message 
-        if (message && message.length > 0 ) {
+        if (message && message.length > 0) {
             prefix = prefix + ': ';
         }
         let prefixedMessage = prefix;
@@ -168,6 +168,61 @@ export class XLog extends Disposable {
             case levels.FATAL:
                 this.logger.fatal(prefixedMessage, ...args);
                 break;
+            default:
+                throw new Error('undefined log level: ' + level);
+        }
+    }
+
+    /**
+     * returns true, if the logger is enabled for the current level
+     */
+    public isEnabled(): boolean {
+        return this.isEnabledFor(this.level);
+    }
+
+    public isTraceEnabled(): boolean {
+        return this.logger.isTraceEnabled();
+    }
+
+    public isDebugEnabled(): boolean {
+        return this.logger.isDebugEnabled();
+    }
+
+    public isInfoEnabled(): boolean {
+        return this.logger.isInfoEnabled();
+    }
+
+    public isWarnEnabled(): boolean {
+        return this.logger.isWarnEnabled();
+    }
+
+    public isErrorEnabled(): boolean {
+        return this.logger.isErrorEnabled();
+    }
+
+    public isFatalEnabled(): boolean {
+        return this.logger.isFatalEnabled();
+    }
+
+    /**
+     * returns true, if the logger is enabled for the given level.
+     * 
+     * @param {Level} level - the log level to test
+     */
+    private isEnabledFor(level: Level): boolean {
+        switch (level) {
+            case levels.TRACE:
+                return this.logger.isTraceEnabled();
+            case levels.DEBUG:
+                return this.logger.isDebugEnabled();
+            case levels.INFO:
+                return this.logger.isInfoEnabled();
+            case levels.WARN:
+                return this.logger.isWarnEnabled();
+            case levels.ERROR:
+                return this.logger.isErrorEnabled();
+            case levels.FATAL:
+                return this.logger.isFatalEnabled();
             default:
                 throw new Error('undefined log level: ' + level);
         }

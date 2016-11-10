@@ -15,11 +15,15 @@ var Disposable = (function () {
         //NOTE: EnterExitLogger not available due to recursion
         //using(new EnterExitLogger(Disposable.logger, levels.DEBUG, 'dispose'), (log) => {
         try {
-            Disposable.logger.trace('>> dispose');
+            if (Disposable.doMethodTraces) {
+                Disposable.logger.trace('>> dispose');
+            }
             if (this.disposed) {
-                Disposable.logger.warn('Instance already disposed: ', this);
                 if (Disposable.throwExceptionOnAlreadyDisposed) {
                     throw new Error('Instance already disposed: ' + JSON.stringify(this));
+                }
+                else {
+                    Disposable.logger.warn('Instance already disposed: ', this);
                 }
             }
             else {
@@ -27,7 +31,9 @@ var Disposable = (function () {
             }
         }
         finally {
-            Disposable.logger.trace('<< dispose');
+            if (Disposable.doMethodTraces) {
+                Disposable.logger.trace('<< dispose');
+            }
             this.disposed = true;
         }
         //});
@@ -39,7 +45,10 @@ var Disposable = (function () {
     Disposable.prototype.onDispose = function () {
     };
     Disposable.logger = log4js_1.getLogger("Disposable");
+    /** if true, throw Error on double dispose */
     Disposable.throwExceptionOnAlreadyDisposed = false;
+    /** if true, log method entry/exit */
+    Disposable.doMethodTraces = false;
     return Disposable;
 }());
 exports.Disposable = Disposable;

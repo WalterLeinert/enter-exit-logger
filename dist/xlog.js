@@ -188,6 +188,53 @@ var XLog = (function (_super) {
         }
         var _a, _b, _c, _d, _e, _f;
     };
+    /**
+     * returns true, if the logger is enabled for the current level
+     */
+    XLog.prototype.isEnabled = function () {
+        return this.isEnabledFor(this.level);
+    };
+    XLog.prototype.isTraceEnabled = function () {
+        return this.logger.isTraceEnabled();
+    };
+    XLog.prototype.isDebugEnabled = function () {
+        return this.logger.isDebugEnabled();
+    };
+    XLog.prototype.isInfoEnabled = function () {
+        return this.logger.isInfoEnabled();
+    };
+    XLog.prototype.isWarnEnabled = function () {
+        return this.logger.isWarnEnabled();
+    };
+    XLog.prototype.isErrorEnabled = function () {
+        return this.logger.isErrorEnabled();
+    };
+    XLog.prototype.isFatalEnabled = function () {
+        return this.logger.isFatalEnabled();
+    };
+    /**
+     * returns true, if the logger is enabled for the given level.
+     *
+     * @param {Level} level - the log level to test
+     */
+    XLog.prototype.isEnabledFor = function (level) {
+        switch (level) {
+            case log4js_1.levels.TRACE:
+                return this.logger.isTraceEnabled();
+            case log4js_1.levels.DEBUG:
+                return this.logger.isDebugEnabled();
+            case log4js_1.levels.INFO:
+                return this.logger.isInfoEnabled();
+            case log4js_1.levels.WARN:
+                return this.logger.isWarnEnabled();
+            case log4js_1.levels.ERROR:
+                return this.logger.isErrorEnabled();
+            case log4js_1.levels.FATAL:
+                return this.logger.isFatalEnabled();
+            default:
+                throw new Error('undefined log level: ' + level);
+        }
+    };
     XLog.indentation = -1;
     XLog.EnterExitStrings = ['>> ', '<< ', '@  '];
     XLog.defaultIndentation = 2;

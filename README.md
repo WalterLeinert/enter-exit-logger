@@ -7,14 +7,15 @@ The trace logs are created with [log4js-node](https://github.com/nomiddlename/lo
 
 ## Installation
 
-1. Install module:
+### Install module:
 
     `npm install enter-exit-logger --save`
 
 
 ## Quick Start
 
-With enter-exit-logger method entry/exit logging can easily be added to typescript code.  
+With enter-exit-logger method entry/exit logging can easily be added to typescript code.
+See [log4js-node](https://github.com/nomiddlename/log4js-node) for further information concerning logging configuration.
 
 ```typescript
 import { XLog, using } from 'enter-exit-logger';
@@ -22,7 +23,7 @@ import { Logger, getLogger, levels, configure } from 'log4js';
 
 
 export class Tester {
-    // initialize a 
+    // initialize a logger instance
     private static logger = getLogger('Tester');
 
     constructor(name: string) {
@@ -39,7 +40,7 @@ export class Tester {
 
     private doTestInternal(val: number): number {
         return using(new XLog(Tester.logger, levels.DEBUG, 'doTestInternal', 'val = %d', val), (log) => {
-            log.log('value = %d', val);
+            log.log('value = %d', val);                 // log with same level as in XLog constructor
 
             this.throwException("exception tester");    // simulate exception
             return 2 * val;
@@ -56,6 +57,42 @@ export class Tester {
         });
     }
 }
+```
 
-````
+What effectively is logged is controlled by the logging configuration.
+
+Example (in config/log4js.json): 
+
+```json
+{
+    "appenders": [
+        {
+            "type": "file",
+            "filename": "log4js.log",
+            "category": ["Tester", "console"],
+            "levels": ["ERROR"],
+            "layout": {
+                "type": "pattern",
+                "pattern": "%d{ISO8601} [%-5p] %-20c %m"
+            }
+        },
+        {
+            "type": "console",
+            "layout": {
+                "type": "pattern",
+                "pattern": "%d{ISO8601} [%[%-5p%]] %[%-20c%] %m"
+            }
+        }
+    ],
+    "levels": {
+        "[all]": "INFO",
+        "Tester": "DEBUG"
+    },
+    "replaceConsole": true
+}
+```
+
+The appenders are logging sinks which control where the logs are written.
+The global levels section controls which level applies to which logger. The logger "[all]" means "all loggers" 
+and defines the default level for all other loggers.
             

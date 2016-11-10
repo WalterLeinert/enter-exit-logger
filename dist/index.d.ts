@@ -14,6 +14,13 @@ declare interface IDisposable {
  * Abstract base class for disposable resources
  */
 declare abstract class Disposable {
+    
+      /** if true, throw Error on double dispose */
+    static throwExceptionOnAlreadyDisposed;
+
+    /** if true, log method entry/exit */
+    static doMethodTraces;
+    
     /**
     * frees required resources
     */
@@ -85,6 +92,18 @@ declare class XLog extends Disposable {
       * @param {any[]} args - arguments to format message
       */
     public fatal(message: string, ...args: any[]): void;
+
+
+    /**
+     * returns true, if the logger is enabled for the current level
+     */
+    public isEnabled(): boolean;
+    public isTraceEnabled(): boolean;
+    public isDebugEnabled(): boolean;
+    public isInfoEnabled(): boolean;
+    public isWarnEnabled(): boolean;
+    public isErrorEnabled(): boolean;
+    public isFatalEnabled(): boolean;
 }
 
 
