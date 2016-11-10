@@ -1,14 +1,28 @@
 import { Logger, Level, levels } from 'log4js';
 
+/**
+ * Interface for disposable Resources
+ */
 declare interface IDisposable {
+    /**
+     * free resources
+     */
     dispose();
-} 
+}
 
 /**
  * Abstract base class for disposable resources
  */
 declare abstract class Disposable {
+    /**
+    * frees required resources
+    */
     public dispose();
+
+    /**
+     * Will be called by @see {Disposable.dispose}.
+     * Must be overridden in derived classes.
+     */
     protected onDispose();
 }
 
@@ -17,19 +31,59 @@ declare abstract class Disposable {
  * Logger for method entry, exit and arbitrary logs based on 
  * the disposable pattern.
  * 
- * @see {EnterExitLogger} works in conjunction with 
- * @see {using}.
+ * @see {XLog} works in conjunction with @see{using}.
  */
 declare class XLog extends Disposable {
     constructor(logger: Logger, level: Level, functionName: string, message?: string, ...args: any[]);
 
-    public log(message: string, ...args: any[]): void; 
 
+    /**
+     * logs a message for the current log level, which was set in constructor
+     * @param {string} message - the log message
+     * @param {any[]} args - arguments to format message
+     */
+    public log(message: string, ...args: any[]): void;
+
+    /**
+      * logs a message for log level @see{levels.TRACE}.
+      * @param {string} message - the log message
+      * @param {any[]} args - arguments to format message
+      */
     public trace(message: string, ...args: any[]): void;
+
+     /**
+      * logs a message for log level @see{levels.DEBUG}.
+      * @param {string} message - the log message
+      * @param {any[]} args - arguments to format message
+      */
     public debug(message: string, ...args: any[]): void;
+
+     /**
+      * logs a message for log level @see{levels.INFO}.
+      * @param {string} message - the log message
+      * @param {any[]} args - arguments to format message
+      */
     public info(message: string, ...args: any[]): void;
+
+     /**
+      * logs a message for log level @see{levels.WARN}.
+      * @param {string} message - the log message
+      * @param {any[]} args - arguments to format message
+      */
     public warn(message: string, ...args: any[]): void;
+
+     /**
+      * logs a message for log level @see{levels.ERROR}.
+      * @param {string} message - the log message
+      * @param {any[]} args - arguments to format message
+      */
     public error(message: string, ...args: any[]): void;
+
+     /**
+      * logs a message for log level @see{levels.FATAL}.
+      * @param {string} message - the log message
+      * @param {any[]} args - arguments to format message
+      */
     public fatal(message: string, ...args: any[]): void;
 }
 
@@ -39,7 +93,7 @@ declare class XLog extends Disposable {
  *
  * Usage:
  * ```typescript
- * using(new DisposableObject(), (myObj)=>{
+ * using(new DisposableObject(), (myObj) => {
  *   // do work with myObj
  * });
  * // myObj automatically has it's dispose method called.
