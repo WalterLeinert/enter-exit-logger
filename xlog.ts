@@ -81,7 +81,7 @@ export class XLog extends Disposable {
      * logs a message for the current log level, which was set in constructor
      */
     public log(message: string, ...args: any[]): void {
-        this.logInternal(EnterExit.Log, this.level, message, args);
+        this.logInternal(EnterExit.Log, this.level, message, ...args);
     }
 
 
@@ -89,42 +89,42 @@ export class XLog extends Disposable {
      * logs a message for log level @see{levels.TRACE}.
      */
     public trace(message: string, ...args: any[]): void {
-        this.logInternal(EnterExit.Log, levels.TRACE, message, args);
+        this.logInternal(EnterExit.Log, levels.TRACE, message, ...args);
     }
 
     /**
      * logs a message for log level @see{levels.DEBUG}.
      */
     public debug(message: string, ...args: any[]): void {
-        this.logInternal(EnterExit.Log, levels.DEBUG, message, args);
+        this.logInternal(EnterExit.Log, levels.DEBUG, message, ...args);
     }
 
     /**
     * logs a message for log level @see{levels.INFO}.
     */
     public info(message: string, ...args: any[]): void {
-        this.logInternal(EnterExit.Log, levels.INFO, message, args);
+        this.logInternal(EnterExit.Log, levels.INFO, message, ...args);
     }
 
     /**
     * logs a message for log level @see{levels.WARN}.
     */
     public warn(message: string, ...args: any[]): void {
-        this.logInternal(EnterExit.Log, levels.WARN, message, args);
+        this.logInternal(EnterExit.Log, levels.WARN, message, ...args);
     }
 
     /**
     * logs a message for log level @see{levels.ERROR}.
     */
     public error(message: string, ...args: any[]): void {
-        this.logInternal(EnterExit.Log, levels.ERROR, message, args);
+        this.logInternal(EnterExit.Log, levels.ERROR, message, ...args);
     }
 
     /**
     * logs a message for log level @see{levels.FATAL}.
     */
     public fatal(message: string, ...args: any[]): void {
-        this.logInternal(EnterExit.Log, levels.FATAL, message, args);
+        this.logInternal(EnterExit.Log, levels.FATAL, message, ...args);
     }
 
     /**

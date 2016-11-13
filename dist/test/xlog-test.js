@@ -43,6 +43,7 @@ var Tester = (function () {
         return disposable_1.using(new xlog_1.XLog(Tester.logger, log4js_1.levels.DEBUG, 'doTestInternal', 'val = %d', val), function (log) {
             if (log.isEnabled()) {
                 log.log('value = %d', val); // log with same level as in XLog constructor if enabled
+                log.log('test-for-missing-args');
             }
             _this.throwException("exception tester"); // simulate exception
             return 2 * val;

@@ -50,7 +50,8 @@ export class Tester {
         return using(new XLog(Tester.logger, levels.DEBUG, 'doTestInternal', 'val = %d', val), (log) => {
             if (log.isEnabled()) {
                 log.log('value = %d', val);             // log with same level as in XLog constructor if enabled
-            }            
+                log.log('test-for-missing-args');
+            }           
 
             this.throwException("exception tester");    // simulate exception
             return 2 * val;

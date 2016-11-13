@@ -79,7 +79,7 @@ var XLog = (function (_super) {
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        this.logInternal(EnterExit.Log, this.level, message, args);
+        this.logInternal.apply(this, [EnterExit.Log, this.level, message].concat(args));
     };
     /**
      * logs a message for log level @see{levels.TRACE}.
@@ -89,7 +89,7 @@ var XLog = (function (_super) {
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        this.logInternal(EnterExit.Log, log4js_1.levels.TRACE, message, args);
+        this.logInternal.apply(this, [EnterExit.Log, log4js_1.levels.TRACE, message].concat(args));
     };
     /**
      * logs a message for log level @see{levels.DEBUG}.
@@ -99,7 +99,7 @@ var XLog = (function (_super) {
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        this.logInternal(EnterExit.Log, log4js_1.levels.DEBUG, message, args);
+        this.logInternal.apply(this, [EnterExit.Log, log4js_1.levels.DEBUG, message].concat(args));
     };
     /**
     * logs a message for log level @see{levels.INFO}.
@@ -109,7 +109,7 @@ var XLog = (function (_super) {
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        this.logInternal(EnterExit.Log, log4js_1.levels.INFO, message, args);
+        this.logInternal.apply(this, [EnterExit.Log, log4js_1.levels.INFO, message].concat(args));
     };
     /**
     * logs a message for log level @see{levels.WARN}.
@@ -119,7 +119,7 @@ var XLog = (function (_super) {
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        this.logInternal(EnterExit.Log, log4js_1.levels.WARN, message, args);
+        this.logInternal.apply(this, [EnterExit.Log, log4js_1.levels.WARN, message].concat(args));
     };
     /**
     * logs a message for log level @see{levels.ERROR}.
@@ -129,7 +129,7 @@ var XLog = (function (_super) {
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        this.logInternal(EnterExit.Log, log4js_1.levels.ERROR, message, args);
+        this.logInternal.apply(this, [EnterExit.Log, log4js_1.levels.ERROR, message].concat(args));
     };
     /**
     * logs a message for log level @see{levels.FATAL}.
@@ -139,7 +139,7 @@ var XLog = (function (_super) {
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        this.logInternal(EnterExit.Log, log4js_1.levels.FATAL, message, args);
+        this.logInternal.apply(this, [EnterExit.Log, log4js_1.levels.FATAL, message].concat(args));
     };
     /**
      * forwards different kind of log messages to @see {log4js}
