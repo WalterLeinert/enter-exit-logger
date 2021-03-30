@@ -1,39 +1,35 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var disposable_1 = require('../disposable');
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Camera = void 0;
+const disposable_1 = require("../lib/disposable");
 /**
  * Test for disposable pattern
  */
-var Camera = (function (_super) {
-    __extends(Camera, _super);
-    function Camera(manufacturer, model) {
-        _super.call(this);
+class Camera extends disposable_1.Disposable {
+    constructor(manufacturer, model) {
+        super();
         this.manufacturer = manufacturer;
         this.model = model;
         console.log('Camera.ctor: manufacturer = ' + manufacturer + ', model = ', model);
     }
-    Camera.prototype.takePicture = function () {
+    takePicture() {
         console.log('Camera.takePicture: simulating exception...');
         throw new Error("Test"); // simulate exception        
-    };
-    Camera.prototype.onDispose = function () {
+    }
+    onDispose() {
         try {
             console.log('Camera.onDispose');
+            // ...
         }
         finally {
-            _super.prototype.onDispose.call(this);
+            super.onDispose();
         }
-    };
-    return Camera;
-}(disposable_1.Disposable));
+    }
+}
 exports.Camera = Camera;
 console.log('Test using/disposable pattern: works in case of exception');
 try {
-    disposable_1.using(new Camera('Sony', 'Alpha a6000'), function (camera) {
+    disposable_1.using(new Camera('Sony', 'Alpha a6000'), (camera) => {
         camera.takePicture();
     });
 }
@@ -42,7 +38,7 @@ catch (exc) {
 }
 console.log();
 console.log('Test double dispose: no check for double dispose');
-var camera = new Camera('Nikon', 'COOLPIX S33 Waterproof ');
+let camera = new Camera('Nikon', 'COOLPIX S33 Waterproof ');
 camera.dispose();
 camera.dispose();
 console.log();

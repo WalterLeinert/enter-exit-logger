@@ -1,30 +1,15 @@
-import { Logger, getLogger } from 'log4js';
-
-/**
- * Interface for disposable Resources
- */
-export interface IDisposable {
-    /**
-     * free resources
-     */
-    dispose();
-}
-
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.using = exports.Disposable = void 0;
+const log4js_1 = require("log4js");
 /**
  * Abstract base class for disposable resources
  */
-export abstract class Disposable implements IDisposable {
-    static logger: Logger = getLogger("Disposable");
-
-    /** if true, throw Error on double dispose */
-    static throwExceptionOnAlreadyDisposed = false;
-
-    /** if true, log method entry/exit */
-    static doMethodTraces = false;
-
-    private disposed = false;;
-
+class Disposable {
+    constructor() {
+        this.disposed = false;
+    }
+    ;
     /**
      * frees required resources
      */
@@ -35,19 +20,19 @@ export abstract class Disposable implements IDisposable {
             if (Disposable.doMethodTraces) {
                 Disposable.logger.trace('>> dispose');
             }
-
-
-            if (this.disposed) {                
+            if (this.disposed) {
                 if (Disposable.throwExceptionOnAlreadyDisposed) {
                     throw new Error('Instance already disposed: ' + JSON.stringify(this));
-                } else {
+                }
+                else {
                     Disposable.logger.warn('Instance already disposed: ', this);
                 }
-            } else {
+            }
+            else {
                 this.onDispose();
             }
-
-        } finally {
+        }
+        finally {
             if (Disposable.doMethodTraces) {
                 Disposable.logger.trace('<< dispose');
             }
@@ -55,16 +40,19 @@ export abstract class Disposable implements IDisposable {
         }
         //});
     }
-
     /**
      * Will be called by @see {Disposable.dispose}.
      * Must be overridden in derived classes.
      */
-    protected onDispose() {
+    onDispose() {
     }
 }
-
-
+exports.Disposable = Disposable;
+Disposable.logger = log4js_1.getLogger("Disposable");
+/** if true, throw Error on double dispose */
+Disposable.throwExceptionOnAlreadyDisposed = false;
+/** if true, log method entry/exit */
+Disposable.doMethodTraces = false;
 /**
  * Just like in C# this 'using' function will ensure the passed disposable is disposed when the closure has finished.
  *
@@ -81,9 +69,7 @@ export abstract class Disposable implements IDisposable {
  * @param {(disposable: TDisposable)} - closure Function call to execute.
  * @returns {TReturn} Returns whatever the closure's return value is.
  */
-export function using<TDisposable extends IDisposable, TReturn>(
-    disposable: TDisposable,
-    closure: (disposable: TDisposable) => TReturn): TReturn {
+function using(disposable, closure) {
     try {
         return closure(disposable);
     }
@@ -91,3 +77,5 @@ export function using<TDisposable extends IDisposable, TReturn>(
         disposable.dispose();
     }
 }
+exports.using = using;
+//# sourceMappingURL=disposable.js.map

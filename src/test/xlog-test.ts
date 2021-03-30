@@ -1,5 +1,5 @@
-import { using } from '../disposable';
-import { XLog } from '../xlog';
+import { using } from '../lib/disposable';
+import { XLog } from '../lib/xlog';
 
 import { Logger, getLogger, levels, configure } from 'log4js';
 
@@ -58,7 +58,7 @@ export class Tester {
         });
     }
 
-    public doTest(name: string): number {
+    public doTest(name: string): number| undefined  {
         return using(new XLog(Tester.logger, levels.INFO, 'doTest', 'name = %s', name), (log) => {
             try {
                 return this.doTestInternal(4711);
