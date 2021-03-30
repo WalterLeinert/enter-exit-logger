@@ -18,8 +18,7 @@ With enter-exit-logger method entry/exit logging can easily be added to typescri
 See [log4js-node](https://github.com/nomiddlename/log4js-node) for further information concerning logging configuration.
 
 ```typescript
-import { XLog, using } from 'enter-exit-logger';
-import { Logger, getLogger, levels, configure } from 'log4js'; 
+import { XLog, using,  Logger, getLogger, levels, configure } from 'enter-exit-logger';
 
 
 export class Tester {
@@ -60,39 +59,65 @@ export class Tester {
 ```
 
 What effectively is logged is controlled by the logging configuration.
+(See also https://log4js-node.github.io/log4js-node/migration-guide.html).
 
 Example (in config/log4js.json): 
 
 ```json
 {
-    "appenders": [
-        {
-            "type": "file",
-            "filename": "log4js.log",
-            "category": ["Tester", "console"],
-            "levels": ["ERROR"],
-            "layout": {
-                "type": "pattern",
-                "pattern": "%d{ISO8601} [%-5p] %-20c %m"
-            }
+    "appenders": {
+        "out": {
+            "type": "console"
         },
-        {
-            "type": "console",
-            "layout": {
-                "type": "pattern",
-                "pattern": "%d{ISO8601} [%[%-5p%]] %[%-20c%] %m"
-            }
+        "task": {
+            "type": "file",
+            "filename": "log4js.log"
         }
-    ],
-    "levels": {
-        "[all]": "INFO",
-        "Tester": "DEBUG"
     },
-    "replaceConsole": true
+    "categories": {
+        "default": {
+            "appenders": [
+                "out"
+            ],
+            "level": "info"
+        },
+        "Tester": {
+            "appenders": [
+                "task"
+            ],
+            "level": "debug"
+        }
+    }
 }
 ```
 
 The appenders are logging sinks which control where the logs are written.
-The global levels section controls which level applies to which logger. The logger "[all]" means "all loggers" 
+The categories section controls which level applies to which logger. The category "default" means "all loggers" 
 and defines the default level for all other loggers.
+
+Samle output:
+
+```
+[2021-03-30T10:59:40.906] [INFO] Tester - >> ctor: name = Walter
+[2021-03-30T10:59:40.912] [INFO] Tester - << ctor
+[2021-03-30T10:59:40.913] [INFO] Tester - >> doTest: name = mein Test
+[2021-03-30T10:59:40.913] [DEBUG] Tester -   >> doTestInternal: val = 4711
+[2021-03-30T10:59:40.914] [DEBUG] Tester -   @  doTestInternal: value = 4711
+[2021-03-30T10:59:40.914] [DEBUG] Tester -   @  doTestInternal: test-for-missing-args
+[2021-03-30T10:59:40.914] [DEBUG] Tester -     >> throwException: message = exception tester
+[2021-03-30T10:59:40.915] [DEBUG] Tester -     << throwException
+[2021-03-30T10:59:40.915] [DEBUG] Tester -   << doTestInternal
+[2021-03-30T10:59:40.915] [ERROR] Tester - @  doTest: Error:  Error: exception tester
+    at disposable_1.using (/home/pi/test/typescript/enter-exit-logger/dist/test/xlog-test.js:40:19)
+    at Object.using (/home/pi/test/typescript/enter-exit-logger/dist/lib/disposable.js:74:16)
+    at Tester.throwException (/home/pi/test/typescript/enter-exit-logger/dist/test/xlog-test.js:39:22)
+    at disposable_1.using (/home/pi/test/typescript/enter-exit-logger/dist/test/xlog-test.js:49:18)
+    at Object.using (/home/pi/test/typescript/enter-exit-logger/dist/lib/disposable.js:74:16)
+    at Tester.doTestInternal (/home/pi/test/typescript/enter-exit-logger/dist/test/xlog-test.js:44:29)
+    at disposable_1.using (/home/pi/test/typescript/enter-exit-logger/dist/test/xlog-test.js:56:29)
+    at Object.using (/home/pi/test/typescript/enter-exit-logger/dist/lib/disposable.js:74:16)
+    at Tester.doTest (/home/pi/test/typescript/enter-exit-logger/dist/test/xlog-test.js:54:29)
+    at Object.<anonymous> (/home/pi/test/typescript/enter-exit-logger/dist/test/xlog-test.js:75:18)
+[2021-03-30T10:59:40.916] [INFO] Tester - << doTest
+```
             

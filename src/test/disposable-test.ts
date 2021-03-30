@@ -1,4 +1,4 @@
-import { Disposable, using } from '../lib/disposable';
+import { Disposable, using } from '../lib';
 
 /**
  * Test for disposable pattern

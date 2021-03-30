@@ -1,8 +1,4 @@
-import { using } from '../lib/disposable';
-import { XLog } from '../lib/xlog';
-
-import { Logger, getLogger, levels, configure } from 'log4js';
-
+import { using, XLog, Logger, getLogger, levels, configure   } from '../lib/';
 
 /*
 log4js.configure({

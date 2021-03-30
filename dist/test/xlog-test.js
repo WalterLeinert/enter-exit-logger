@@ -1,9 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tester = void 0;
-const disposable_1 = require("../lib/disposable");
-const xlog_1 = require("../lib/xlog");
-const log4js_1 = require("log4js");
+const lib_1 = require("../lib/");
 /*
 log4js.configure({
     appenders: [
@@ -28,20 +26,20 @@ log4js.configure({
 //
 // configure the logging system
 //
-log4js_1.configure("config/log4js.json");
+lib_1.configure("config/log4js.json");
 class Tester {
     constructor(name) {
-        disposable_1.using(new xlog_1.XLog(Tester.logger, log4js_1.levels.INFO, 'ctor', 'name = %s', name), (log) => {
+        lib_1.using(new lib_1.XLog(Tester.logger, lib_1.levels.INFO, 'ctor', 'name = %s', name), (log) => {
             // ...
         });
     }
     throwException(message) {
-        disposable_1.using(new xlog_1.XLog(Tester.logger, log4js_1.levels.DEBUG, 'throwException', 'message = %s', message), (log) => {
+        lib_1.using(new lib_1.XLog(Tester.logger, lib_1.levels.DEBUG, 'throwException', 'message = %s', message), (log) => {
             throw new Error(message);
         });
     }
     doTestInternal(val) {
-        return disposable_1.using(new xlog_1.XLog(Tester.logger, log4js_1.levels.DEBUG, 'doTestInternal', 'val = %d', val), (log) => {
+        return lib_1.using(new lib_1.XLog(Tester.logger, lib_1.levels.DEBUG, 'doTestInternal', 'val = %d', val), (log) => {
             if (log.isEnabled()) {
                 log.log('value = %d', val); // log with same level as in XLog constructor if enabled
                 log.log('test-for-missing-args');
@@ -51,7 +49,7 @@ class Tester {
         });
     }
     doTest(name) {
-        return disposable_1.using(new xlog_1.XLog(Tester.logger, log4js_1.levels.INFO, 'doTest', 'name = %s', name), (log) => {
+        return lib_1.using(new lib_1.XLog(Tester.logger, lib_1.levels.INFO, 'doTest', 'name = %s', name), (log) => {
             try {
                 return this.doTestInternal(4711);
             }
@@ -62,15 +60,15 @@ class Tester {
     }
 }
 exports.Tester = Tester;
-Tester.logger = log4js_1.getLogger('Tester');
+Tester.logger = lib_1.getLogger('Tester');
 class Tester2 {
     constructor() {
-        disposable_1.using(new xlog_1.XLog(Tester2.logger, log4js_1.levels.INFO, 'ctor'), (log) => {
+        lib_1.using(new lib_1.XLog(Tester2.logger, lib_1.levels.INFO, 'ctor'), (log) => {
             // ...
         });
     }
 }
-Tester2.logger = log4js_1.getLogger('Tester2');
+Tester2.logger = lib_1.getLogger('Tester2');
 var tester = new Tester('Walter');
 let val = tester.doTest('mein Test');
 let tester2 = new Tester2();
