@@ -1,8 +1,6 @@
 {
-  "extends": "./tsconfig.build.json",
+  "extends": "./tsconfig.common.json",
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
     "types": [
       "node",
       "mocha"
