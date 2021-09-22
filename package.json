@@ -1,6 +1,6 @@
 {
   "name": "enter-exit-logger",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "typescript/javascript method enter/exit logger based on log4js-node",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
@@ -8,9 +8,13 @@
     "node": ">=8.0"
   },
   "scripts": {
-    "test": "node dist/test/disposable-test.js && node dist/test/xlog-test.js",
-    "clean": "rm -rf dist log4js*.log",
-    "build": "npm run clean && tsc -p .",
+    "test": "mocha \"dist/test/**/*.spec.js\"",
+    "clean": "rm -rf ./dist/lib",
+    "clean:all": "npm run clean && npm run clean:test && rm -rf ./dist",
+    "clean:test": "rm -rf ./dist/test",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "build:all": "npm run build && npm run build:test",
+    "build:test": "npm run clean:test && tsc -p tsconfig.spec.json",
     "tslint": "tslint ./*.ts ./lib/*.ts"
   },
   "author": {
@@ -32,19 +36,24 @@
     "log4js"
   ],
   "dependencies": {
+    "@log4js-node/smtp": "^1.1.0",
     "log4js": "^6.3.0"
   },
   "devDependencies": {
     "@tsconfig/node10": "^1.0.7",
     "@tsconfig/recommended": "^1.0.1",
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^8.2.3",
     "@types/node": "^6.0.46",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
+    "chai": "^4.3.4",
     "eslint": "^7.23.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
+    "mocha": "^8.2.1",
     "typescript": "^4.2.3"
   }
 }

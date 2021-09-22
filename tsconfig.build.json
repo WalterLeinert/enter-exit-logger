@@ -1,0 +1,16 @@
+{
+  "extends": "@tsconfig/node10/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ES6",
+    "declaration": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}

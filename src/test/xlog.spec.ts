@@ -1,4 +1,6 @@
-import { using, XLog, Logger, getLogger, levels, configure   } from '../lib/';
+import { expect } from 'chai';
+
+import { using, XLog, Logger, getLogger, levels, configure } from '../lib';
 
 /*
 log4js.configure({
@@ -47,14 +49,14 @@ export class Tester {
             if (log.isEnabled()) {
                 log.log('value = %d', val);             // log with same level as in XLog constructor if enabled
                 log.log('test-for-missing-args');
-            }           
+            }
 
             this.throwException("exception tester");    // simulate exception
             return 2 * val;
         });
     }
 
-    public doTest(name: string): number| undefined  {
+    public doTest(name: string): number | undefined {
         return using(new XLog(Tester.logger, levels.INFO, 'doTest', 'name = %s', name), (log) => {
             try {
                 return this.doTestInternal(4711);
@@ -75,7 +77,12 @@ class Tester2 {
     }
 }
 
-var tester = new Tester('Walter');
-let val = tester.doTest('mein Test');
 
-let tester2 = new Tester2();
+describe("xlog", () => {
+    it('run w/o exception', () => {
+        var tester = new Tester('Walter');
+        let val = tester.doTest('mein Test');
+
+        let tester2 = new Tester2();
+    });
+});
