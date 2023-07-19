@@ -36,7 +36,7 @@
     "log4js"
   ],
   "dependencies": {
-    "@log4js-node/smtp": "^1.1.0",
+    "@log4js-node/smtp": "^2.0.8",
     "log4js": "^6.3.0"
   },
   "devDependencies": {
